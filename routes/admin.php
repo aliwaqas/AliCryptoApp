@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::prefix('admin')->middleware('theme:admin')->name('admin.')->group(function () {
+    // ----------------------------- Admin  Import -----------------------//
+    Route::get('import/country', [App\Http\Controllers\SettingController::class, 'ImportCountry'])->middleware('auth:admin')->name('import.country');
+
     // ----------------------------- Admin  AuthManagement -----------------------//
     Route::view('/login', 'auth.login')->middleware('guest:admin')->name('login');
     $limiter = config('fortify.limiters.login');
@@ -19,7 +22,7 @@ Route::prefix('admin')->middleware('theme:admin')->name('admin.')->group(functio
 
     Route::view('/home', 'dashboard.dashboard')->middleware('auth:admin')->name('home');
 
-    // ----------------------------- user userManagement -----------------------//
+    // ----------------------------- Setting Managment -----------------------//
     Route::get('settings/country', [App\Http\Controllers\SettingController::class, 'index'])->middleware('auth:admin')->name('countrysetting');
     Route::get('settings/get-countrylist', [App\Http\Controllers\SettingController::class, 'getCountriesList'])->middleware('auth:admin')->name('get.countris.list');
     Route::post('settings/country', [App\Http\Controllers\SettingController::class, 'store'])->middleware('auth:admin')->name('addCountry');

@@ -8,13 +8,50 @@ use Auth;
 use App\Models\Countrylist;
 use App\Models\Form;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 use DataTables;
 use Image;
+use Illuminate\Support\Facades\DB;
 
 
 
 class SettingController extends Controller
 {
+    public function ImportCountry()
+    {
+        $json =  Http::get('https://restcountries.eu/rest/v2/');  /// country details api path
+        $upload_path = '/settings/flags/';   /// save img path 
+        
+        $data =  json_decode($json , true);
+
+        // foreach to import into table products
+        foreach ($data as $key => $obj) {
+
+            $foundData = Countrylist::where('slug', $obj['alpha2Code'] )->first();
+            $importSlug = '';
+
+            if (!$foundData) {
+                $flaglink = file_get_contents('https://www.countryflags.io/'.$obj['alpha2Code'].'/shiny/64.png');
+                $filename = $obj['alpha2Code'].'-'.time().'.png';
+                Image::make($flaglink)->save(public_path($upload_path . $filename));
+
+                $imgFile  = $upload_path . $filename;
+                
+                DB::table('countrylists')->insert([
+                    'slug' => $obj['alpha2Code'],
+                    'name' => $obj['name'],
+                    'time_zone' => $obj['timezones'][0],
+                    'details' => $obj['alpha2Code'],
+                    'is_active' => 1,
+                    'img' => $imgFile,
+                ]);
+                $importSlug = $importSlug.'<br'. $obj['alpha2Code'];
+            }
+
+            return $importSlug;
+
+        }
+    }
     public function index()
     {
         //$arr_ip = geoip_time_zone_by_country_and_region('JP', '01'); //geoip()->getLocation('232.223.11.11');
@@ -193,14 +230,14 @@ class SettingController extends Controller
             {
                 $image = $request->file('img');
                 $filename = $request->input('slug').'-'.time().'.'.$image->getClientOriginalExtension();
-                $upload_path = public_path('setting/flags'); //Creating Sub directory in Public folder to put image
+                $upload_path = public_path('settings/flags'); //Creating Sub directory in Public folder to put image
                 $imgFile = Image::make($image->getRealPath());
 
-                $imgFile->resize(150, 150, function ($constraint) {
+                $imgFile->resize(64, 64, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($upload_path.'/'.$filename);
 
-                $image_url =  '/setting/flags/'.$filename;
+                $image_url =  '/settings/flags/'.$filename;
 
                 $countrylist = new Countrylist;
     
