@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'status',
         'email',
         'password',
+        'countrylist_id',
     ];
 
     /**
@@ -56,5 +57,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getUserbyWallet()
     {
         return $this->hasMany(Wallet::class);
+    }
+
+    public function getUserwithflag()
+    {
+        return $this->belongsTo(Countrylist::class);
+        //return $this->hasOne(Countrylist::class);
     }
 }

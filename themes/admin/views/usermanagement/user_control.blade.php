@@ -2,7 +2,7 @@
 
 @section('content')
 
- 
+
     <!-- Page Wrapper -->
     <div class="page-wrapper">
         <!-- Page Content -->
@@ -25,29 +25,29 @@
 			<!-- /Page Header -->
 
             <!-- Search Filter -->
-            <form action="" method="POST"> 
+            <form action="" method="POST">
                 {{-- {{ route('search/user/list') }} --}}
                 @csrf
                 <div class="row filter-row">
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" id="name" name="name">
                             <label class="focus-label">User Name</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" id="name" name="role_name">
                             <label class="focus-label">Role Name</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12"> 
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" id="name" name="status">
                             <label class="focus-label">Status</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <div class="cal-icon">
                                 <input class="form-control floating datetimepicker" type="text" id="" name="fromDate">
@@ -55,7 +55,7 @@
                             <label class="focus-label">From</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <div class="cal-icon">
                                 <input class="form-control floating datetimepicker" type="text" id="" name="toDate">
@@ -63,11 +63,11 @@
                             <label class="focus-label">To</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                        <button type="sumit" class="btn btn-success btn-block"> Search </button>  
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+                        <button type="sumit" class="btn btn-success btn-block"> Search </button>
                     </div>
                 </div>
-            </form>     
+            </form>
             <!-- /Search Filter -->
             {{-- message --}}
             {!! Toastr::message() !!}
@@ -139,7 +139,7 @@
                                                     <span class="statuss">N/A</span>
                                                 </a>
                                             @endif
-                                            
+
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item" href="#">
                                                     <i class="fa fa-dot-circle-o text-success"></i> Active
@@ -173,7 +173,7 @@
             </div>
         </div>
         <!-- /Page Content -->
-        
+
 
         <!-- Add User Modal -->
         <div id="add_user" class="modal custom-modal fade" role="dialog">
@@ -188,72 +188,72 @@
                     <div class="modal-body">
                         <form action="{{ route('admin.user/add/save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Full Name</label>
                                         <input class="form-control @error('name') is-invalid @enderror" type="text" id="" name="name" value="{{ old('name') }}" placeholder="Enter Name">
                                     </div>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Emaill Address</label>
                                     <input class="form-control" type="email" id="" name="email" placeholder="Enter Email">
                                 </div>
                             </div>
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <label>Role Name</label>
                                     <select class="select" name="role_name" id="role_name">
                                         <option selected disabled> --Select --</option>
-                                       
+
                                     </select>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Position</label>
                                     <select class="select" name="position" id="position">
                                         <option selected disabled> --Select --</option>
-                                       
+
                                     </select>
                                 </div>
                             </div>
                             <br>
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Phone</label>
                                         <input class="form-control" type="tel" id="" name="phone" placeholder="Enter Phone">
                                     </div>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Department</label>
                                     <select class="select" name="department" id="department">
                                         <option selected disabled> --Select --</option>
-                                       
+
                                     </select>
                                 </div>
                             </div>
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <label>Status</label>
                                     <select class="select" name="status" id="status">
                                         <option selected disabled> --Select --</option>
-                                        
+
                                     </select>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Photo</label>
                                     <input class="form-control" type="file" id="image" name="image">
                                 </div>
                             </div>
                             <br>
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Password</label>
                                         <input type="password" class="form-control" name="password" placeholder="Enter Password">
                                     </div>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Repeat Password</label>
                                     <input type="password" class="form-control" name="password_confirmation" placeholder="Choose Repeat Password">
                                 </div>
@@ -267,7 +267,7 @@
             </div>
         </div>
         <!-- /Add User Modal -->
-				
+
         <!-- Edit User Modal -->
         <div id="edit_user" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -283,55 +283,55 @@
                         <form action="" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="rec_id" id="e_id" value="">
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input class="form-control" type="text" name="name" id="e_name" value="" />
                                     </div>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Email</label>
                                     <input class="form-control" type="text" name="email" id="e_email" value=""/>
                                 </div>
                             </div>
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <label>Role Name</label>
                                     <select class="select" name="role_name" id="e_role_name">
-                                       
+
                                     </select>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Position</label>
                                     <select class="select" name="position" id="e_position">
-                                       
+
                                     </select>
                                 </div>
                             </div>
                             <br>
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Phone</label>
                                         <input class="form-control" type="text" id="e_phone_number" name="phone" placeholder="Enter Phone">
                                     </div>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Department</label>
                                     <select class="select" name="department" id="e_department">
-                                       
+
                                     </select>
                                 </div>
                             </div>
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <label>Status</label>
                                     <select class="select" name="status" id="e_status">
-                                       
+
                                     </select>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Photo</label>
                                     <input class="form-control" type="file" id="image" name="images">
                                     <input type="hidden" name="hidden_image" id="e_image" value="">
@@ -347,7 +347,7 @@
             </div>
         </div>
         <!-- /Edit Salary Modal -->
-				
+
         <!-- Delete User Modal -->
         {{-- <div class="modal custom-modal fade" id="delete_user" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
@@ -401,7 +401,7 @@
             var statuss = (_this.find(".statuss").text());
             var _option = '<option selected value="' +statuss+ '">' + _this.find('.statuss').text() + '</option>'
             $( _option).appendTo("#e_status");
-            
+
         });
     </script>
     @endsection

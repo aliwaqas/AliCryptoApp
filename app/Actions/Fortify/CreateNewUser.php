@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use App\Models\Countrylist;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -20,7 +21,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        
+
         Validator::make($input, [
             'userName' => ['required', 'string', 'max:255', 'alpha'],
             'firstName' => ['required', 'string', 'max:255', 'alpha'],
@@ -42,12 +43,17 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
+        $userIP = request()->ip();
+        $data = geoip($ip = $userIP);
+        $country = Countrylist::where('slug' , $data->iso_code)->first();
+
         return User::create([
             'userName' => $input['userName'],
             'firstName' => $input['firstName'],
             'lastName' => $input['lastName'],
             'email' => $input['email'],
-            'ip' => request()->ip(), 
+            'ip' => $userIP,
+            'countrylist_id' => $country->id,
             'password' => Hash::make($input['password']),
         ]);
     }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Brian2694\Toastr\Facades\Toastr;
 use Auth;
 use App\Models\Countrylist;
 use App\Models\Form;
@@ -19,9 +18,10 @@ class SettingController extends Controller
 {
     public function ImportCountry()
     {
+
         $json =  Http::get('https://restcountries.eu/rest/v2/');  /// country details api path
-        $upload_path = '/settings/flags/';   /// save img path 
-        
+        $upload_path = '/settings/flags/';   /// save img path
+
         $data =  json_decode($json , true);
 
         // foreach to import into table products
@@ -36,7 +36,7 @@ class SettingController extends Controller
                 Image::make($flaglink)->save(public_path($upload_path . $filename));
 
                 $imgFile  = $upload_path . $filename;
-                
+
                 DB::table('countrylists')->insert([
                     'slug' => $obj['alpha2Code'],
                     'name' => $obj['name'],
@@ -48,26 +48,35 @@ class SettingController extends Controller
                 $importSlug = $importSlug.'<br'. $obj['alpha2Code'];
             }
 
-            return $importSlug;
+
 
         }
+        return $importSlug;
+    }
+
+    public function test()
+    {
+
+        $data = geoip($ip = '59.103.190.86');
+        dd($data);
     }
     public function index()
     {
         //$arr_ip = geoip_time_zone_by_country_and_region('JP', '01'); //geoip()->getLocation('232.223.11.11');
         //dd($arr_ip);
-        
+
+
 
         if (Auth::guest())
         {
-            
+
             return redirect()->route('admin.home');
-            
+
         }
         else
         {
             $result = Countrylist::all();
-            
+
             return view('settings.country',compact('result'));
         }
     }
@@ -96,9 +105,14 @@ class SettingController extends Controller
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item userUpdate" data-toggle="modal" data-id="'.$row['id'].'" data-target="#edit_user"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                         <a class="dropdown-item userDelete" data-id="'.$row['id'].'"   ><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                        
+
                                     </div>
                                 </div>';
+                    })
+                    ->addColumn('flagImg', function($row){
+                        return '<h2 class="table-avatar">
+                                    <a href="profile.html" class=""><img src="'.$row['img'].'" alt="" style="width:40px"></a>
+                                </h2>';
                     })
                     ->addColumn('statusBtn', function($row){
 
@@ -108,8 +122,8 @@ class SettingController extends Controller
                                         <i class="fa fa-dot-circle-o text-success"></i>
                                         <span class="statuss">Active</span>
                                     </a>';
-                            
-                            
+
+
                         }
                         elseif($row['is_active'] == 'Inactive')
                         {
@@ -119,7 +133,7 @@ class SettingController extends Controller
                                         <span class="statuss">Inactive</span>
                                  </a>';
                         }
-                        
+
                         else
                         {
                             $btnCode = '<a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -127,7 +141,7 @@ class SettingController extends Controller
                                             <span class="statuss">N/A</span>
                                         </a>';
                         }
-                                           
+
                         return '<div class="dropdown action-label">'.$btnCode.'
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a  class="activeStatus dropdown-item" data-status="Active" data-id="'.$row['id'].'" >
@@ -136,15 +150,15 @@ class SettingController extends Controller
                                         <a  class="activeStatus dropdown-item" data-status="Inactive" data-id="'.$row['id'].'" >
                                             <i class="fa fa-dot-circle-o text-warning"></i> Inactive
                                         </a>
-                                        
+
                                     </div>
                                 </div>';
                     })
-                    
-            
-                    ->rawColumns(['actions','statusBtn'])
+
+
+                    ->rawColumns(['actions','statusBtn','flagImg'])
                     ->make(true);
-    }         
+    }
     //UPDATE COUNTRY Status
     public function updateCountryStatus(Request $request){
 
@@ -160,11 +174,11 @@ class SettingController extends Controller
             $status = $request->status;
             if($status == 'Active')
             {
-               $updateStatus = 1; 
+               $updateStatus = 1;
             }
             else
             {
-                $updateStatus = 2; 
+                $updateStatus = 2;
             }
             $country = Countrylist::find($country_id);
             $country->is_active = $updateStatus;
@@ -192,11 +206,11 @@ class SettingController extends Controller
             $status = $request->status;
             if($status == 'Active')
             {
-               $updateStatus = 1; 
+               $updateStatus = 1;
             }
             else
             {
-                $updateStatus = 2; 
+                $updateStatus = 2;
             }
             $country = Countrylist::find($country_id);
             $country->is_active = $updateStatus;
@@ -219,7 +233,7 @@ class SettingController extends Controller
                 'details' => 'required|max:150',
                 'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-    
+
             if ($validator->fails()) {
                 return response()->json([
                     'status' => 400,
@@ -240,7 +254,7 @@ class SettingController extends Controller
                 $image_url =  '/settings/flags/'.$filename;
 
                 $countrylist = new Countrylist;
-    
+
                 $countrylist->slug = $request->input('slug');
                 $countrylist->name = $request->input('name');
                 $countrylist->img = $image_url;
@@ -248,26 +262,26 @@ class SettingController extends Controller
                 $countrylist->is_active = 1;
                 $countrylist->time_zone = 'sadasdas';
                 $query = $countrylist->save();
-    
-               
+
+
                 if(!$query){
                     return response()->json(['status'=>0,'msg'=>'Something went wrong']);
                 }else{
                     return response()->json(['status'=>200,'msg'=>'New Country has been successfully saved']);
                 }
-    
+
             }
 
         }catch(\Exception $e)
         {
 
         }
-        
 
 
-       
-        
-        
+
+
+
+
     }
     // DELETE COUNTRY RECORD
     public function deleteCountry(Request $request)
@@ -283,6 +297,6 @@ class SettingController extends Controller
     }
 
     ///================================================================End Country Settings =================================================================
-    //................................................................ 
+    //................................................................
     //================================================================Start Country Zone  Settings ==========================================================
 }

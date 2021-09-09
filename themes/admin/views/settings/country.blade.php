@@ -2,7 +2,7 @@
 
 @section('content')
 
- 
+
     <!-- Page Wrapper -->
     <div class="page-wrapper">
         <!-- Page Content -->
@@ -12,7 +12,7 @@
                 <div class="row align-items-center">
                     <div class="col">
                         <h3 class="page-title">Country List</h3>
-                        
+
                     </div>
                     <div class="col-auto float-right ml-auto">
                         <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_user"><i class="fa fa-plus"></i> Add Country</a>
@@ -22,42 +22,42 @@
 			<!-- /Page Header -->
 
             <!-- Search Filter -->
-            <form action="" method="POST"> 
+            <form action="" method="POST">
                 {{-- {{ route('search/user/list') }} --}}
                 @csrf
                 <div class="row filter-row">
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" id="name" name="name">
                             <label class="focus-label">Slug</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" id="role_name" name="role_name">
                             <label class="focus-label">Country Name</label>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12"> 
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" id="status" name="status">
                             <label class="focus-label">Status</label>
                         </div>
                     </div>
-                    
-                    
-                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                        <button type="sumit" class="btn btn-success btn-block"> Search </button>  
+
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+                        <button type="sumit" class="btn btn-success btn-block"> Search </button>
                     </div>
                 </div>
-            </form>     
+            </form>
             <!-- /Search Filter -->
             {{-- message --}}
             {!! Toastr::message() !!}
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table id="load_data" class="table table-striped custom-table ">
+                        <table id="load_data" class="table table-striped custom-table  ">
                             <thead>
                                 <tr>
                                     <th>#ID</th>
@@ -66,22 +66,22 @@
                                     <th>Country Name</th>
                                     <th>Time Zone</th>
                                     <th >Status</th>
-                                    
+
                                     <th class="text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
 
-                            
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /Page Content -->
-        
+
 
         <!-- Add User Modal -->
         <div id="add_user" class="modal custom-modal fade" role="dialog">
@@ -96,32 +96,32 @@
                     <div class="modal-body">
                         <form action="{{ route('admin.user/add/save') }}" method="POST" enctype="multipart/form-data" id="addform" >
                             @csrf
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Short Code</label>
                                         <input class="slug form-control" type="text"  name="slug" value="{{ old('slug') }}" placeholder="Enter Country Short Code">
                                     </div>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Country Name</label>
                                     <input class="name form-control" type="text"  name="name" placeholder="Enter Country Full Name">
                                 </div>
                             </div>
 
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Country Flag</label>
                                         <input class="img form-control" type="file"  name="img" >
                                     </div>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Country Details</label>
                                     <input class="details form-control" type="text" name="details" placeholder="Enter Details">
                                 </div>
                             </div>
-                            
+
                             <div class="submit-section">
                                 <button id="submit" type="submit" class="btn btn-primary submit-btn submitdata">Submit</button>
                             </div>
@@ -131,7 +131,7 @@
             </div>
         </div>
         <!-- /Add User Modal -->
-				
+
         <!-- Edit User Modal -->
         <div id="edit_user" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -147,35 +147,35 @@
                         <form action="{{ route('admin.update.country.details') }}" method="POST" enctype="multipart/form-data" id="update-country-form">
                             @csrf
                             <input type="hidden" name="rec_id" id="e_id" value="">
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="col-sm-6">
                                     <label>Short Code</label>
                                     <input id="e_slug" class="slug form-control" type="text"  name="slug" value="" placeholder="Enter Country Short Code">
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Country Name</label>
                                     <input class="name form-control" type="text"  name="name" placeholder="Enter Country Full Name">
                                 </div>
                             </div>
-                            <div class="row"> 
-                                <div class="col-sm-6"> 
+                            <div class="row">
+                                <div class="col-sm-6">
                                     <label>Status</label>
                                     <select class="select" name="status" id="e_status">
                                         <option value="Active">Active</option>
                                         <option value="Inactive">Inactive</option>
-                                       
+
                                     </select>
                                 </div>
-                                <div class="col-sm-6"> 
+                                <div class="col-sm-6">
                                     <label>Country Details</label>
                                     <input class="details form-control" type="text" name="name" placeholder="Enter Details">
                                 </div>
                             </div>
                             <br>
-                           
-                            <div class="row"> 
-                                
-                                <div class="col-sm-6"> 
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
                                     <label>Photo</label>
                                     <input class="form-control" type="file" id="img" name="img">
                                 </div>
@@ -190,23 +190,23 @@
             </div>
         </div>
         <!-- /Edit Salary Modal -->
-				
-        
+
+
     </div>
     <!-- /Page Wrapper -->
     @section('script')
     {{-- update js --}}
     <script>
-        
-       
+
+
         $(document).ready(function () {
 
-            //  Add Data 
+            //  Add Data
 
             $("form#addform").submit(function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
-                
+
                 //var data = $(this).serialize();
                 $.ajax({
                     type: "post",
@@ -217,12 +217,12 @@
                     //dataType: "json",
                     success: function (response) {
                         console.log(response)
-                        if(response.status == 400) 
+                        if(response.status == 400)
                         {
                             toasterOptions();
                             $('#add_model').find('input').val("");
-                            
-                            
+
+
                             errorMessage = response.message;
                             $.each(errorMessage, function(index, value)
                             {
@@ -231,7 +231,7 @@
                                     toastr.error(value);
                                 }
                             });
-                            
+
                         }
                         else if(response.status == 200)
                         {
@@ -263,16 +263,16 @@
                         data:{
                             status: 'Active',
                         }
-                        
+
                     },
                     "pageLength":10,
                     "aLengthMenu":[[5,10,25,50,-1],[5,10,25,50,"All"]],
                     columns:[
                         {data:'id', name:'id'},
-                        {data:'img', name:'img'},
+                        {data:'flagImg', name:'flagImg'},
                         {data:'slug', name:'slug'},
                         {data:'name', name:'name'},
-                        {data:'name', name:'name'},
+                        {data:'time_zone', name:'time_zone'},
                         {data:'statusBtn', name:'statusBtn', orderable:false, searchable:false},
                         {data:'actions', name:'actions', orderable:false, searchable:false},
                     ]
@@ -287,8 +287,8 @@
                 $('#e_id').val(_this.find(dataID).text());
                 $('#e_slug').val(_this.find(dataID).text());
 
-                
-                
+
+
             });
 
 
@@ -325,7 +325,7 @@
                             },'json');
                         }
                 });
-                
+
             });
 
 
@@ -369,10 +369,10 @@
                         }
                 });
 
-                
-                
+
+
             });
-            
+
 
 
             //UPDATE COUNTRY DETAILS
@@ -408,11 +408,11 @@
                 });
             });
 
-                
 
-            
 
-            
+
+
+
 
         });
 
@@ -441,7 +441,7 @@
         };
     </script>
 
-    
+
     @endsection
 
 @endsection

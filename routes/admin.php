@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::prefix('admin')->middleware('theme:admin')->name('admin.')->group(function () {
+
+    Route::get('test', [App\Http\Controllers\SettingController::class, 'test'])->middleware('auth');
     // ----------------------------- Admin  Import -----------------------//
     Route::get('import/country', [App\Http\Controllers\SettingController::class, 'ImportCountry'])->middleware('auth:admin')->name('import.country');
 
@@ -39,5 +41,5 @@ Route::prefix('admin')->middleware('theme:admin')->name('admin.')->group(functio
     Route::get('activity/log', [App\Http\Controllers\UserManagementController::class, 'activityLog'])->middleware('auth')->name('activity/log');
     Route::get('activity/login/logout', [App\Http\Controllers\UserManagementController::class, 'activityLogInLogOut'])->middleware('auth')->name('activity/login/logout');
 
-        
+
 });
