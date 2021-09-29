@@ -97,6 +97,8 @@ class SettingController extends Controller
                 }
 
             }
+
+            //return $countries;
             return DataTables::of($countries)
                     ->addIndexColumn()
                     ->addColumn('actions', function($row){

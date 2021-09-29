@@ -38,7 +38,7 @@
                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                         <div class="form-group form-focus">
                             <input type="text" class="form-control floating" id="name" name="role_name">
-                            <label class="focus-label">Role Name</label>
+                            <label class="focus-label">Email</label>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
@@ -74,99 +74,28 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-striped custom-table datatable">
+                        <table id="load_data" class="table table-striped custom-table  ">
                             <thead>
                                 <tr>
-                                    <th>Avator</th>
-                                    <th>Email</th>
+                                    <th>#ID</th>
+                                    <th>User Name</th>
+                                    <th>User Email</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
-                                    <th>Phone</th>
-                                    <th>Join Date</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Departement</th>
+                                    <th >Phone</th>
+                                    <th >Join Date</th>
+                                    <th>Register IP</th>
+                                    <th >Country</th>
+                                    <th >Time Zone</th>
+                                    <th >Status</th>
                                     <th class="text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($result as $key=>$user )
-                                <tr>
-                                    <td>
-                                        <span hidden class="image">{{ $user->img}}</span>
-                                        <h2 class="table-avatar">
-                                            <a href="profile.html" class="avatar"><img src="{{ URL::to('theme/admin/assets/images/'. $user->avator) }}" alt="{{ $user->avator }}"></a>
-                                        </h2>
-                                    </td>
-                                    <td class="email">{{ $user->email }}</td>
-                                    <td class="firstName">{{ $user->firstName }}</td>
-                                    <td class="lastName">{{ $user->lastName }}</td>
-                                    <td class="phone">{{ $user->phone }}</td>
-                                    <td>{{ $user->created_at }}</td>
-                                    <td>
-                                        @if ($user->firstName =='ali')
-                                            <span class="badge bg-inverse-danger role_name">{{ $user->firstName }}</span>
-                                            @elseif ($user->role_name=='Super Admin')
-                                            <span class="badge bg-inverse-warning role_name">{{ $user->role_name }}</span>
-                                            @elseif ($user->role_name=='Normal User')
-                                            <span class="badge bg-inverse-info role_name">{{ $user->role_name }}</span>
-                                            @elseif ($user->role_name=='Client')
-                                            <span class="badge bg-inverse-success role_name">{{ $user->role_name }}</span>
-                                            @elseif ($user->role_name=='Employee')
-                                            <span class="badge bg-inverse-dark role_name">{{ $user->role_name }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="dropdown action-label">
-                                            @if (true)
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i>
-                                                    <span class="statuss">{{ $user->firstName }}</span>
-                                                </a>
-                                                @elseif ($user->status=='Inactive')
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-info"></i>
-                                                    <span class="statuss">{{ $user->status }}</span>
-                                                </a>
-                                                @elseif ($user->status=='Disable')
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i>
-                                                    <span class="statuss">{{ $user->status }}</span>
-                                                </a>
-                                                @elseif ($user->status=='')
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-dark"></i>
-                                                    <span class="statuss">N/A</span>
-                                                </a>
-                                            @endif
 
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Active
-                                                </a>
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="fa fa-dot-circle-o text-warning"></i> Inactive
-                                                </a>
-                                                <a class="dropdown-item" href="#">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> Disable
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="department">{{ $user->department }}</td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item userUpdate" data-toggle="modal" data-id="'.$user->id.'" data-target="#edit_user"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" href="{{ url('delete_user/'.$user->id) }}" onclick="return confirm('Are you sure to want to delete it?')"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                {{-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_user"><i class="fa fa-trash-o m-r-5"></i> Delete</a> --}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
                             </tbody>
+
+
                         </table>
                     </div>
                 </div>
@@ -348,30 +277,7 @@
         </div>
         <!-- /Edit Salary Modal -->
 
-        <!-- Delete User Modal -->
-        {{-- <div class="modal custom-modal fade" id="delete_user" role="dialog">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="form-header">
-                            <h3>Delete User</h3>
-                            <p>Are you sure want to delete?</p>
-                        </div>
-                        <div class="modal-btn delete-action">
-                            <div class="row">
-                                <div class="col-6">
-                                    <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        <!-- /Delete User Modal -->
+
     </div>
     <!-- /Page Wrapper -->
     @section('script')
@@ -403,6 +309,37 @@
             $( _option).appendTo("#e_status");
 
         });
+
+        //GET ALL COUNTRIES
+        var table =  $('#load_data').DataTable({
+                    processing:true,
+                    // serverSide:true,
+                    destroy:true,
+                    ajax:{
+                        url: "{{ route('admin.get.user.list') }}",
+                        type: 'get',
+                        data:{
+                            //status: 'Active',
+                        }
+
+                    },
+                    "pageLength":10,
+                    "aLengthMenu":[[5,10,25,50,-1],[5,10,25,50,"All"]],
+                    columns:[
+                        {data:'id', name:'id'},
+                        {data:'userName', name:'userName'},
+                        {data:'email', name:'email'},
+                        {data:'firstName', name:'firstName'},
+                        {data:'lastName', name:'lastName'},
+                        {data:'phone', name:'phone'},
+                        {data:'created_at', name:'created_at'},
+                        {data:'ip', name:'ip'},
+                        {data:'countryName', name:'countryName'},
+                        {data:'time_zone', name:'time_zone'},
+                        {data:'statusBtn', name:'statusBtn', orderable:false, searchable:false},
+                        {data:'actions', name:'actions', orderable:false, searchable:false},
+                    ]
+            });
     </script>
     @endsection
 

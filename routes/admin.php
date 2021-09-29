@@ -35,6 +35,7 @@ Route::prefix('admin')->middleware('theme:admin')->name('admin.')->group(functio
 
     // ----------------------------- user userManagement -----------------------//
     Route::get('userManagement', [App\Http\Controllers\UserManagementController::class, 'index'])->middleware('auth:admin')->name('userManagement');
+    Route::get('user/get-users', [App\Http\Controllers\UserManagementController::class, 'getuserList'])->middleware('auth:admin')->name('get.user.list');
     Route::post('user/add/save', [App\Http\Controllers\UserManagementController::class, 'addNewUserSave'])->name('user/add/save');
     Route::post('update', [App\Http\Controllers\UserManagementController::class, 'update'])->name('update');
     Route::get('delete_user/{id}', [App\Http\Controllers\UserManagementController::class, 'delete'])->middleware('auth');
